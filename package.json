@@ -1,0 +1,32 @@
+{
+  "name": "github-jobs",
+  "version": "1.0.0",
+  "description": "Here we are, the last graded project of this semester.",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.2.1"
+  },
+  "devDependencies": {
+    "sass": "^1.30.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ravinalamada/github-jobs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "browserslist": [
+    "last 1 chrome versions"
+  ],
+  "bugs": {
+    "url": "https://github.com/ravinalamada/github-jobs/issues"
+  },
+  "homepage": "https://github.com/ravinalamada/github-jobs#readme"
+}
