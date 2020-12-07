@@ -2,7 +2,9 @@ import React, {useContext} from 'react';
 import {Context} from '../GlobalContextProvider';
 import {StyledContainer} from '../styles';
 import Jobs from '../Pages/Jobs';
-import JobLoading from './JobLoading'
+import JobLoading from './JobLoading';
+import Header from '../Components/Header';
+import FielteredLocation from '../Components/FilteredLocation';
 
 // Mapped the jobs data from the API url
 function JobsList() {
@@ -11,6 +13,8 @@ function JobsList() {
 
   return (
     <StyledContainer>
+      <Header/>
+      <FielteredLocation />
       <ul>
         <JobLoading />
         {!loading && jobs && (

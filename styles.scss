@@ -2,3 +2,31 @@ img {
   width: 100px;
 }
 
+.header {
+  background-image: url('./assets/backgroundImg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-color: transparent;
+  border-radius: 8px;
+}
+
+.form {
+  padding-top: 62px;
+  padding-bottom: 62px;
+  padding-left: 18px;
+  padding-right: 18px;
+
+  &__fieldset {
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 80% 1fr;
+  }
+
+  &__input,
+  &__fieldset {
+    background: #FFFFFF;
+    border-color: transparent;
+  }
+}

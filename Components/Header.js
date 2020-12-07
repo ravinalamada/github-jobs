@@ -4,17 +4,21 @@ import { HeaderStyle } from '../styles';
 // This will display the App header
 function Header() {
   return (
-    <HeaderStyle>
-      <h1>Github jobs</h1>
-      <form>
-        <fieldset>
-          <input
-            type='text'
-            name="filter"
-          />
+    <header className="header">
+      <form className="form">
+        <fieldset className="form__fieldset">
+          <div>
+            <input
+              type='text'
+              className="form__input"
+              name="filter"
+              placeholder="Title, companies, experti..."
+            />
+          </div>
+          <button>Search</button>
         </fieldset>
       </form>
-    </HeaderStyle>
+    </header>
   )
 }
 

@@ -5,9 +5,14 @@ const endpoint = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/po
 function useReduce() {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
-       case "FETCH_JOBS": {
-         return {...state, loading: false, jobs: action.job}
-       }
+      case "FETCH_JOBS": {
+        return {...state, loading: false, jobs: action.job}
+      }
+
+      //  case "FETCH_JOB_DETAILS": {
+      //    return {...state, jobDetail:action.jobDet}
+      //  }
+
        case "FIELTER_LOCATION": {
          return {...state, loading: false, jobs: action.location}
        }
@@ -18,6 +23,7 @@ function useReduce() {
     loading: true,
     isCheked: false,
     jobs: [],
+    jobDetail: [],
   })
 
   // Fetch the jobs data
@@ -31,7 +37,7 @@ function useReduce() {
      setTimeout(() => {
        dispatch({type:"FETCH_JOBS"})
        getJobs()
-     }, 500)
+     }, 200)
    }, [])
 
    // return the state and dispatch that I am going to use

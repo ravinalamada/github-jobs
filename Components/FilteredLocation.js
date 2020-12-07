@@ -7,7 +7,6 @@ import Jobs from '../Pages/Jobs';
 function FilteredLocation() {
   const {state, dispatch, loading} = useContext(Context);
   const {jobs} = state;
-  console.log(jobs);
 
   function handleFilteredLocation(e) {
     const value = e.target.value;

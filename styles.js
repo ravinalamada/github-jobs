@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 
 // This will style the container class
  const StyledContainer = styled.div `
-  background-color: #eebbc3;
+  background-color: #333333;
   padding: 16px;
 
   .container,
