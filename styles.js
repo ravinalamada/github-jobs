@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: Open-Sans, Helvetica, Sans-Serif;
-    font-size: 18px
+    font-size: 18px;
   }
 `;
 
@@ -14,11 +14,11 @@ const GlobalStyle = createGlobalStyle`
    background-image: url('./assets/backgroundImg.png');
    background-repeat: no-repeat;
    background-size: contain;
+   background-color: lightgray;;
  `
 
 // This will style the container class
  const StyledContainer = styled.div `
-  background-color: #333333;
   padding: 16px;
 
   .container,

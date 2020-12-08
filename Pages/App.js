@@ -1,28 +1,36 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
-// import Header from '../Components/Header';
+import Header from '../Components/Header';
 import JobsList from '../Components/JobsList';
 import {GlobalStyle} from '../styles';
-// import FilteredLocation from '../Components/FilteredLocation';
+import JobLocation from '../Components/JobLocation';
 import JobDetails from '../Components/JobDetails';
+import JobType from '../Components/JobType';
 
 
 function App() {
   return (
-    <>
+    <div className="App">
       <GlobalStyle />
       <h1>Github jobs</h1>
-      <div>
-        <Switch>
+      <Header />
+      <div className="App--container">
+        <div>
+          <JobType />
+          <JobLocation />
+        </div>
+        <div>
+          <Switch>
           <Route exact path="/">
-            <JobsList />
+          <JobsList />
           </Route>
           <Route path="/:jobId">
-            <JobDetails />
+          <JobDetails />
           </Route>
-        </Switch>
-      </div>
-    </>
+          </Switch>
+        </div>
+    </div>
+    </div>
   )
 }
 

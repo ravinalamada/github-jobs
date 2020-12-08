@@ -1,5 +1,23 @@
+body {
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  background-color: lightgray;
+}
+
+.App {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
 img {
-  width: 100px;
+  width: 100%;
+}
+
+fieldset {
+  padding: 0;
+  margin-left: 16px;
+  margin-right: 32px;
+  margin-top: 16px;
+  border-color: transparent;
 }
 
 .header {
@@ -9,6 +27,7 @@ img {
   background-position: center;
   border-color: transparent;
   border-radius: 8px;
+  margin-bottom: 40px;
 }
 
 .form {
@@ -22,10 +41,130 @@ img {
   border-radius: 4px;
   display: grid;
   grid-template-columns: 80% 1fr;
+  align-items: center;
 }
-.form__input, .form__fieldset {
+.form__input {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 14px;
+  color: #B9BDCF;
+  width: 80%;
+}
+.form__input, .form__fieldset,
+.form .job--type {
   background: #FFFFFF;
   border-color: transparent;
+}
+
+a {
+  text-decoration: none;
+}
+
+a .items,
+.job--location input {
+  background: #FFFFFF;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 32px;
+}
+
+.job--contents {
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  column-gap: 32px;
+  align-items: flex-start;
+}
+
+.job--company {
+  margin-top: 0;
+}
+
+.job--type {
+  border: 1px solid #334680;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 8px;
+  width: max-content;
+}
+
+.job--location--days {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.createdDate,
+.location {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 14px;
+  color: #B9BDCF;
+}
+
+.location {
+  margin-right: 16px;
+}
+
+.job--location label {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  text-transform: uppercase;
+  color: #B9BDCF;
+  margin-bottom: 32px;
+}
+
+.search--btn {
+  background: #1E86FF;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  padding-left: 48px;
+  padding-right: 48px;
+  border-color: transparent;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.job--location input {
+  width: 100%;
+  border-color: transparent;
+}
+
+.job--location--fieldset {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+@media (min-width: 900px) {
+  .App {
+    max-width: 1114px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .App--container {
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    column-gap: 32px;
+  }
+
+  .job--type {
+    width: 40%;
+  }
 }
 
 /*# sourceMappingURL=/styles.164d45a1.css.map */

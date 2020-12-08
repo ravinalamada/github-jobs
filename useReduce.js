@@ -16,6 +16,10 @@ function useReduce() {
        case "FIELTER_LOCATION": {
          return {...state, loading: false, jobs: action.location}
        }
+
+       case "FILTER_TITLE_COMPANY": {
+         return {...state, loading: false, jobs: action.searchJob}
+       }
        default:
           return state
      }
@@ -37,7 +41,7 @@ function useReduce() {
      setTimeout(() => {
        dispatch({type:"FETCH_JOBS"})
        getJobs()
-     }, 200)
+     }, 500)
    }, [])
 
    // return the state and dispatch that I am going to use

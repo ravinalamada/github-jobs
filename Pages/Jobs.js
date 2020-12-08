@@ -8,16 +8,18 @@ function Jobs({job}) {
 
   return (
     <Link to={`/${job.id}`}>
-      <li>
-        <img src={job.company_logo} alt={job.title}/>
-        <div>
-          <p>{job.company}</p>
-          <h3>{job.title}</h3>
-          <p>{job.type}</p>
+      <li className="items">
+        <div className="job--contents">
+          <img src={job.company_logo} alt={job.title}/>
+          <div>
+            <p className="job--company">{job.company}</p>
+            <h3>{job.title}</h3>
+            <p className="job--type">{job.type}</p>
+          </div>
         </div>
-        <div>
-          <p>{job.location}</p>
-          <p>{days} {days > 1 ? 'days' : 'day'} ago</p>
+        <div className="job--location--days">
+          <p className="location">{job.location}</p>
+          <p className="createdDate">{days} {days > 1 ? 'days' : 'day'} ago</p>
         </div>
       </li>
     </Link>
