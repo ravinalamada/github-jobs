@@ -7,9 +7,7 @@ import Jobs from '../Pages/Jobs';
 function Header() {
   const {state, dispatch} = useContext(Context);
   const {loading,jobs} = state;
-  console.log(jobs);
   const [searchJob, setSearchJob] = useState(jobs);
-  console.log(searchJob);
 
   // This filter the Job title and company name
     const fielterJobTitleAndCompany = !loading && jobs && searchJob.filter(job => job.title.toLowerCase() || job.company.toLowerCase() === searchJob);

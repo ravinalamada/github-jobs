@@ -20,6 +20,11 @@ function useReduce() {
        case "FILTER_TITLE_COMPANY": {
          return {...state, loading: false, jobs: action.searchJob}
        }
+
+       case "NEW_YORK_LOCATION": {
+         return {...state, loading: false, isCheked: !state.isCheked }
+       }
+
        default:
           return state
      }

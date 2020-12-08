@@ -19,7 +19,7 @@ function jobType() {
   return (
       <fieldset>
         <label>Full time</label>
-        <input type="checkbox" value={jobType} onChange={handleChange}/>
+        <input className="job--location__input" type="checkbox" value={jobType} onChange={handleChange}/>
       </fieldset>
   )
 }

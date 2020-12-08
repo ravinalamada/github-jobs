@@ -7,7 +7,7 @@ const MARKDOWN = '?markdown=true';
 
 function JobDetails() {
   const {jobId}= useParams();
-  const {state, dispatch}= useContext(Context);
+  const {state}= useContext(Context);
   const {jobs, loading} = state;
   const [jobDetail, setJobDetail] = useState({})
 

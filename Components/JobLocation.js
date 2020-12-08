@@ -1,20 +1,14 @@
 import React, {useContext} from 'react';
-import {Switch, Route, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Context} from '../GlobalContextProvider';
-import Jobs from '../Pages/Jobs';
 
 // This will fielter the location
 function FilteredLocation() {
-  const {state, dispatch, loading} = useContext(Context);
-  const {jobs} = state;
+  const { dispatch } = useContext(Context);
 
-  function handleFilteredLocation(e) {
-    const value = e.target.value;
-    if(!loading) {
-     const filter = jobs.filter(job => job.location === value)
-     const mappedFielteredLoc = filter.map(job => (<Jobs key={job.key} job={job}/>))
-    dispatch({type:"FIELTER_LOCATION", location:mappedFielteredLoc})
-    }
+  // This will toggle the button
+  function toggleInput() {
+    dispatch({type:"NEW_YORK_LOCATION"})
   }
 
   return (
@@ -28,19 +22,26 @@ function FilteredLocation() {
       <form>
         <fieldset className="job--location--fieldset">
           <label>London</label>
-          <input type="checkbox"/>
+          <Link className="link--location" to="/londonLocation">
+            <input type="checkbox" onChange={toggleInput}/>
+          </Link>
         </fieldset>
         <fieldset className="job--location--fieldset">
           <label>Amsterdam</label>
-          <input type="checkbox"/>
+          <Link className="link--location" to="/amsterdam">
+            <input type="checkbox" onClick={toggleInput} />
+          </Link>
         </fieldset>
         <fieldset className="job--location--fieldset">
           <label>New York</label>
-          <input type="checkbox"/>
+          <Link className="link--location" to="/newYorkLocation">
+            <input type="checkbox" onClick={toggleInput}/>
+          </Link>
         </fieldset>
         <fieldset className="job--location--fieldset">
           <label>Berlin</label>
-          <input type="checkbox" />
+          <Link className="link--location" to="/berlin">
+            <input type="checkbox" onClick={toggleInput} /></Link>
         </fieldset>
       </form>
     </div>
