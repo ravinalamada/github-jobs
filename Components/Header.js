@@ -7,25 +7,22 @@ import Jobs from '../Pages/Jobs';
 function Header() {
   const {state, dispatch} = useContext(Context);
   const {loading,jobs} = state;
-  const [searchJob, setSearchJob] = useState(jobs);
+  const [searchJob, setSearchJob] = useState('');
 
-  // This filter the Job title and company name
-    const fielterJobTitleAndCompany = !loading && jobs && searchJob.filter(job => job.title.toLowerCase() || job.company.toLowerCase() === searchJob);
-    console.log(fielterJobTitleAndCompany);
-
-    // useEffect(() => {
-    //   setSearchJob(fielterJobTitleAndCompany);
-    // }, [jobs]);
-
-    function handleSearchJob(e) {
+    function submitSearchJob(e) {
       e.preventDefault();
-      dispatch({ type: 'FILTER_TITLE_COMPANY', searchJob });
-      alert('Profile updated successfully');
+
+    // This filter the Job title and company name
+      const searchJobByTitleAndCompany = !loading && jobs && jobs.filter(job => job.title.toLowerCase() === searchJob.toLocaleLowerCase() || job.company.toLowerCase() === searchJob.toLocaleLowerCase());
+      console.log(searchJobByTitleAndCompany);
+      dispatch({ type: 'FILTER_JOB_TITLE_COMPANY', searchJobByTitleAndCompany });
+      // alert(`There are ${searchJobByTitleAndCompany.length}  jobs in there`);
+      setSearchJob('')
     }
 
   return (
     <header className="header">
-      <form className="form" onSubmit={handleSearchJob}>
+      <form className="form" onSubmit={submitSearchJob}>
         <fieldset className="form__fieldset">
           <div>
             <input

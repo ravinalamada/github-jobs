@@ -1,14 +1,14 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
 
-function Jobs({job}) {
+function Jobs({job, toggleItems}) {
   const dateStr = job.created_at;
   const date = new Date(dateStr);
   const days = date.getDay() + 1;
 
   return (
     <Link to={`/${job.id}`}>
-      <li className="items">
+      <li className="items" onClick={toggleItems}>
         <div className="job--contents">
           <img src={job.company_logo} alt={job.title}/>
           <div>

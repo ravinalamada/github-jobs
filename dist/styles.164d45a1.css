@@ -41,16 +41,17 @@ fieldset {
   border-radius: 4px;
   display: grid;
   grid-template-columns: 80% 1fr;
-  align-items: center;
 }
 .form__input {
   font-family: "Roboto";
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 14px;
-  color: #B9BDCF;
+  color: black;
+  padding-left: 16px;
   width: 80%;
+  height: 90%;
 }
 .form__input, .form__fieldset,
 .form .job--type {
@@ -70,6 +71,7 @@ a .items,
   border-radius: 4px;
   padding: 12px;
   margin-bottom: 32px;
+  list-style: none;
 }
 
 .job--contents {
