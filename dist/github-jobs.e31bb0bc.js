@@ -37535,7 +37535,7 @@ function useReduce() {
           };
         }
 
-      case "FIELTER_LOCATION":
+      case "TOGGLE_CHECKBOX":
         {
           return { ...state,
             loading: false,
@@ -37563,13 +37563,6 @@ function useReduce() {
         {
           return { ...state,
             jobs: action.searchJobByLocation
-          };
-        }
-
-      case "SEARCH_JOB_IN_AMESTERDAM":
-        {
-          return { ...state,
-            jobs: action.searchJobInAmest
           };
         }
 
@@ -37797,261 +37790,7 @@ function JobLoading() {
 
 var _default = JobLoading;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../GlobalContextProvider":"GlobalContextProvider.js"}],"Components/Location/JobLocation.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _reactRouterDom = require("react-router-dom");
-
-var _axios = _interopRequireDefault(require("axios"));
-
-var _GlobalContextProvider = require("../../GlobalContextProvider");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const LONDON_API = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=python&location=london';
-const NY_API = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=python&location=new+york';
-const AMESTERDAM_API = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=python&location=amsterdam';
-const BERLIN_API = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=python&location=berlin'; // This will filter the location
-
-function FilteredLocation() {
-  const {
-    state,
-    dispatch
-  } = (0, _react.useContext)(_GlobalContextProvider.Context);
-  const [londonLocation, setLondonLocation] = (0, _react.useState)('');
-  const [NYLocation, setNYLocation] = (0, _react.useState)('');
-  const [AmesterdamLocation, setAmesterdamLocation] = (0, _react.useState)('');
-  const [BerlinLocation, setBerlinLocation] = (0, _react.useState)('');
-  const {
-    loading,
-    jobs
-  } = state; //Get Job data fron London
-
-  async function getLondLocation() {
-    const response = await (0, _axios.default)(LONDON_API);
-    setLondonLocation(response.data);
-  }
-
-  (0, _react.useEffect)(() => {
-    setTimeout(() => {
-      getLondLocation();
-    }, 500);
-  }, []); // Get job data from Amesterdam
-
-  async function getAmesterdamLocation() {
-    const res = await (0, _axios.default)(AMESTERDAM_API);
-    setAmesterdamLocation(res.dat);
-  }
-
-  (0, _react.useEffect)(() => {
-    setTimeout(() => {
-      getAmesterdamLocation();
-    }, 500);
-  }, []); // Get job data from New York
-
-  async function getNYLocation() {
-    const res = await (0, _axios.default)(NY_API);
-    setNYLocation(res.data);
-  }
-
-  (0, _react.useEffect)(() => {
-    setTimeout(() => {
-      getNYLocation();
-    }, 500);
-  }, []); // Get job data from Berlin
-
-  async function getBerlinLocation() {
-    const res = await (0, _axios.default)(BERLIN_API);
-    setBerlinLocation(res.data);
-  }
-
-  (0, _react.useEffect)(() => {
-    setTimeout(() => {
-      getBerlinLocation();
-    }, 500);
-  }, []); // Get the location from London
-
-  const locationObj = !loading && londonLocation;
-  const getLocation = !loading && locationObj && locationObj.map(loc => loc.location);
-  const location = !loading && getLocation && getLocation[0]; // get the location from Amesterdam
-
-  const AmestLocationObj = !loading && AmesterdamLocation.data;
-  const getAmestLocation = !loading && AmestLocationObj && AmestLocationObj.map(loc => loc.location);
-  console.log(getAmestLocation);
-  const Amestlocation = !loading && getAmestLocation && getAmestLocation[(0, 1)]; // get the location from New York
-
-  const NYLocationObj = !loading && NYLocation;
-  const jobInNYLocation = !loading && NYLocationObj && NYLocationObj.map(loc => loc.location);
-  console.log(jobInNYLocation); // const NYlocation = !loading && getNYLocation && getNYLocation[0 , 1];
-  // Search the job location
-
-  function handleSearchLocation(e) {
-    e.preventDefault(); // This filter the Job title and company name
-
-    const searchJobByLocation = !loading && jobs && jobs.filter(job => job.location.toLowerCase() === location.toLocaleLowerCase()); // Dispatch the state
-
-    dispatch({
-      type: 'SEARCH_JOB_BY_LOCATION',
-      searchJobByLocation
-    });
-    alert(`There are ${searchJobByLocation.length}  jobs in there`);
-    setLondonLocation('');
-  }
-
-  function searchAMestLocation(e) {
-    e.preventDefault(); // This filter the Job title and company name
-
-    const searchJobInAmest = !loading && jobs && jobs.filter(job => job.location.toLowerCase() === Amestlocation.toLocaleLowerCase()); // Dispatch the state
-
-    dispatch({
-      type: 'SEARCH_JOB_IN_AMESTERDAM',
-      searchJobInAmest
-    });
-    alert(`There are ${searchJobInAmest.length}  jobs in there`);
-    setAmesterdamLocation('');
-  }
-
-  function searchNYLocation(e) {
-    e.preventDefault(); // This filter the Job title and company name
-
-    const searchJobInNY = !loading && jobs && jobs.filter(job => job.location.toLowerCase() === Amestlocation.toLocaleLowerCase()); // Dispatch the state
-
-    dispatch({
-      type: 'SEARCH_JOB_IN_NY',
-      searchJobInNY
-    });
-    alert(`There are ${searchJobInNY.length}  jobs in there`);
-    setNYLocation('');
-  } // function handleSearchLocation(e) {
-  //   e.preventDefault();
-  // // This filter the Job title and company name
-  //   const searchJobByLocation = !loading && jobs && jobs.filter(job => job.location.toLowerCase() === location.toLocaleLowerCase());
-  //   // Dispatch the state
-  //   dispatch({ type: 'SEARCH_JOB_BY_LOCATION', searchJobByLocation });
-  //   alert(`There are ${searchJobByLocation.length}  jobs in there`);
-  //   setLondonLocation('')
-  // }
-  // function handleSearchLocation(e) {
-  //   e.preventDefault();
-  // // This filter the Job title and company name
-  //   const searchJobByLocation = !loading && jobs && jobs.filter(job => job.location.toLowerCase() === location.toLocaleLowerCase());
-  //   // Dispatch the state
-  //   dispatch({ type: 'SEARCH_JOB_BY_LOCATION', searchJobByLocation });
-  //   alert(`There are ${searchJobByLocation.length}  jobs in there`);
-  //   setLondonLocation('')
-  // }
-  // This will toggle the checkbox
-
-
-  function toggleInput() {
-    dispatch({
-      type: "NEW_YORK_LOCATION"
-    });
-  }
-
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", null, /*#__PURE__*/_react.default.createElement("fieldset", {
-    className: "job--location"
-  }, /*#__PURE__*/_react.default.createElement("label", null, "Location"), /*#__PURE__*/_react.default.createElement("input", {
-    type: "text",
-    placeholder: "City, state, zip code or country"
-  }))), /*#__PURE__*/_react.default.createElement("form", null, /*#__PURE__*/_react.default.createElement("fieldset", {
-    className: "job--location--fieldset"
-  }, /*#__PURE__*/_react.default.createElement("label", null, "London"), /*#__PURE__*/_react.default.createElement("input", {
-    type: "checkbox",
-    onChange: handleSearchLocation
-  })), /*#__PURE__*/_react.default.createElement("fieldset", {
-    className: "job--location--fieldset"
-  }, /*#__PURE__*/_react.default.createElement("label", null, "Amsterdam"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    className: "link--location",
-    to: "/amsterdam"
-  }, /*#__PURE__*/_react.default.createElement("input", {
-    type: "checkbox",
-    onChange: searchAMestLocation
-  }))), /*#__PURE__*/_react.default.createElement("fieldset", {
-    className: "job--location--fieldset"
-  }, /*#__PURE__*/_react.default.createElement("label", null, "New York"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    className: "link--location",
-    to: "/newYorkLocation"
-  }, /*#__PURE__*/_react.default.createElement("input", {
-    type: "checkbox",
-    onClick: searchNYLocation
-  }))), /*#__PURE__*/_react.default.createElement("fieldset", {
-    className: "job--location--fieldset"
-  }, /*#__PURE__*/_react.default.createElement("label", null, "Berlin"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    className: "link--location",
-    to: "/berlin"
-  }, /*#__PURE__*/_react.default.createElement("input", {
-    type: "checkbox",
-    onClick: toggleInput
-  })))));
-}
-
-var _default = FilteredLocation;
-exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","axios":"node_modules/axios/index.js","../../GlobalContextProvider":"GlobalContextProvider.js"}],"Components/JobType.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _reactRouterDom = require("react-router-dom");
-
-var _GlobalContextProvider = require("../GlobalContextProvider");
-
-var _Jobs = _interopRequireDefault(require("../Pages/Jobs"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-// This filters jobs in New York
-function jobType() {
-  const {
-    state,
-    dispatch
-  } = (0, _react.useContext)(_GlobalContextProvider.Context);
-  const {
-    jobs,
-    loading,
-    isCheked
-  } = state;
-  const [jobType, setJobType] = (0, _react.useState)(jobs);
-
-  function handleChange() {
-    const fielterJobType = !loading && jobType.map(job => job.type === 'Full time');
-    console.log(fielterJobType);
-    setJobType(fielterJobType);
-    console.log(jobType);
-  }
-
-  return /*#__PURE__*/_react.default.createElement("fieldset", null, /*#__PURE__*/_react.default.createElement("label", null, "Full time"), /*#__PURE__*/_react.default.createElement("input", {
-    className: "job--location__input",
-    type: "checkbox",
-    value: jobType,
-    onChange: handleChange
-  }));
-}
-
-var _default = jobType;
-exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../GlobalContextProvider":"GlobalContextProvider.js","../Pages/Jobs":"Pages/Jobs.js"}],"Components/Location/JobsList.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../GlobalContextProvider":"GlobalContextProvider.js"}],"Components/Location/JobsList.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38068,10 +37807,6 @@ var _styles = require("../../styles");
 var _Jobs = _interopRequireDefault(require("../../Pages/Jobs"));
 
 var _JobLoading = _interopRequireDefault(require("../JobLoading"));
-
-var _JobLocation = _interopRequireDefault(require("../../Components/Location/JobLocation"));
-
-var _JobType = _interopRequireDefault(require("../JobType"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38105,7 +37840,103 @@ function JobsList() {
 
 var _default = JobsList;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../../GlobalContextProvider":"GlobalContextProvider.js","../../styles":"styles.js","../../Pages/Jobs":"Pages/Jobs.js","../JobLoading":"Components/JobLoading.js","../../Components/Location/JobLocation":"Components/Location/JobLocation.js","../JobType":"Components/JobType.js"}],"Components/JobDetails.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../../GlobalContextProvider":"GlobalContextProvider.js","../../styles":"styles.js","../../Pages/Jobs":"Pages/Jobs.js","../JobLoading":"Components/JobLoading.js"}],"Components/Location/JobLocation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _GlobalContextProvider = require("../../GlobalContextProvider");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+// This will filter the location
+function FilteredLocation() {
+  const {
+    state,
+    dispatch
+  } = (0, _react.useContext)(_GlobalContextProvider.Context);
+  const [searchLocation, setSearchLocation] = (0, _react.useState)('');
+  const {
+    loading,
+    jobs
+  } = state; // Search the job location
+
+  function handleSearchLocation(e) {
+    e.preventDefault(); // This filter the Job title and company name
+
+    const searchJobByLocation = !loading && jobs && jobs.filter(job => job.location.toLowerCase() === searchLocation.toLocaleLowerCase()); // Dispatch the state
+
+    dispatch({
+      type: 'SEARCH_JOB_BY_LOCATION',
+      searchJobByLocation
+    });
+    alert(`There are ${searchJobByLocation.length}  jobs in there`);
+    setSearchLocation('');
+  } // This will toggle the button
+
+
+  function toggleInput() {
+    dispatch({
+      type: "TOGGLE_CHECKBOX"
+    });
+  }
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
+    onSubmit: handleSearchLocation
+  }, /*#__PURE__*/_react.default.createElement("fieldset", {
+    className: "job--location"
+  }, /*#__PURE__*/_react.default.createElement("label", null, "Location"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    placeholder: "City, state, zip code or country",
+    value: searchLocation,
+    onChange: e => setSearchLocation(e.target.value)
+  }))), /*#__PURE__*/_react.default.createElement("form", null, /*#__PURE__*/_react.default.createElement("fieldset", {
+    className: "job--location--fieldset"
+  }, /*#__PURE__*/_react.default.createElement("label", null, "London"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    className: "link--location",
+    to: "/londonLocation"
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    type: "checkbox",
+    onChange: toggleInput
+  }))), /*#__PURE__*/_react.default.createElement("fieldset", {
+    className: "job--location--fieldset"
+  }, /*#__PURE__*/_react.default.createElement("label", null, "Amsterdam"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    className: "link--location",
+    to: "/amsterdam"
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    type: "checkbox",
+    onChange: toggleInput
+  }))), /*#__PURE__*/_react.default.createElement("fieldset", {
+    className: "job--location--fieldset"
+  }, /*#__PURE__*/_react.default.createElement("label", null, "New York"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    className: "link--location",
+    to: "/newYorkLocation"
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    type: "checkbox",
+    onChange: toggleInput
+  }))), /*#__PURE__*/_react.default.createElement("fieldset", {
+    className: "job--location--fieldset"
+  }, /*#__PURE__*/_react.default.createElement("label", null, "Berlin"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    className: "link--location",
+    to: "/berlin"
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    type: "checkbox",
+    onChange: toggleInput
+  })))));
+}
+
+var _default = FilteredLocation;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../../GlobalContextProvider":"GlobalContextProvider.js"}],"Components/JobDetails.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38142,8 +37973,7 @@ function JobDetails() {
   const {
     jobDetails,
     loading
-  } = state; // const [jobDetail, setJobDetail] = useState({})
-  // Fetch the job details
+  } = state; // Fetch the job details
 
   async function getJobDetail() {
     const fetchJobDetail = await (0, _axios.default)(BASE_URL + `${jobId}.json` + MARKDOWN); // Dispatch the data
@@ -38174,7 +38004,54 @@ function JobDetails() {
 
 var _default = JobDetails;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../GlobalContextProvider":"GlobalContextProvider.js"}],"Components/Location/NYLocation.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../GlobalContextProvider":"GlobalContextProvider.js"}],"Components/JobType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _GlobalContextProvider = require("../GlobalContextProvider");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+// This filters jobs in New York
+function jobType() {
+  const {
+    state,
+    dispatch
+  } = (0, _react.useContext)(_GlobalContextProvider.Context);
+  const {
+    jobs,
+    loading,
+    isCheked
+  } = state;
+  const [jobType, setJobType] = (0, _react.useState)(jobs);
+
+  function handleChange() {
+    const fielterJobType = !loading && jobType.map(job => job.type === 'Full time');
+    console.log(fielterJobType);
+    setJobType(fielterJobType);
+  }
+
+  return /*#__PURE__*/_react.default.createElement("fieldset", null, /*#__PURE__*/_react.default.createElement("label", null, "Full time"), /*#__PURE__*/_react.default.createElement("input", {
+    className: "job--location__input",
+    type: "checkbox",
+    value: jobType,
+    onChange: handleChange
+  }));
+}
+
+var _default = jobType;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../GlobalContextProvider":"GlobalContextProvider.js"}],"Components/Location/NYLocation.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38220,7 +38097,14 @@ function NYLocation() {
     setTimeout(() => {
       getNYLocation();
     }, 500);
-  }, []); // Set the date when the job is created
+  }, []); // This will toggle the items
+
+  function toggleItems() {
+    dispatch({
+      type: "TOGGLE_ITEMS"
+    });
+  } // Set the date when the job is created
+
 
   const dateObj = !loading && jobs.find(job => job.created_at);
   const dateStr = dateObj.created_at;
@@ -38230,7 +38114,8 @@ function NYLocation() {
     to: `/${job.id}`
   }, /*#__PURE__*/_react.default.createElement("li", {
     className: "items",
-    key: job.id
+    key: job.id,
+    onClick: toggleItems
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "job--contents"
   }, /*#__PURE__*/_react.default.createElement("img", {
@@ -38298,9 +38183,16 @@ function London() {
     setTimeout(() => {
       getNYLocation();
     }, 500);
-  }, []); // Set the date when the job is created
+  }, []); // This will toggle the items
 
-  const dateObj = !loading && jobs.find(job => job.created_at);
+  function toggleItems() {
+    dispatch({
+      type: "TOGGLE_ITEMS"
+    });
+  } // Set the date when the job is created
+
+
+  const dateObj = !loading && jobs && jobs.find(job => job.created_at);
   const dateStr = dateObj.created_at;
   const date = new Date(dateStr);
   const days = date.getDay() + 1;
@@ -38462,9 +38354,16 @@ function berlinLocation() {
     setTimeout(() => {
       getBerlinLocation();
     }, 500);
-  }, []); // Set the date when the job is created
+  }, []); // This will toggle the items
 
-  const dateObj = !loading && jobs.find(job => job.created_at);
+  function toggleItems() {
+    dispatch({
+      type: "TOGGLE_ITEMS"
+    });
+  } // Set the date when the job is created
+
+
+  const dateObj = !loading && jobs && jobs.find(job => job.created_at);
   const dateStr = dateObj.created_at;
   const date = new Date(dateStr);
   const days = date.getDay() + 1;
@@ -38472,7 +38371,8 @@ function berlinLocation() {
     to: `/${job.id}`
   }, /*#__PURE__*/_react.default.createElement("li", {
     className: "items",
-    key: job.id
+    key: job.id,
+    onClick: toggleItems
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "job--contents"
   }, /*#__PURE__*/_react.default.createElement("img", {
@@ -38634,7 +38534,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64846" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51126" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

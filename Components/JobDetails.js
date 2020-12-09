@@ -1,5 +1,5 @@
 
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import axios from 'axios';
 import {Link,useParams} from 'react-router-dom';
 import {Context} from '../GlobalContextProvider';
@@ -13,12 +13,10 @@ function JobDetails() {
   const {jobId}= useParams();
   const {state, dispatch}= useContext(Context);
   const {jobDetails, loading} = state;
-  // const [jobDetail, setJobDetail] = useState({})
 
   // Fetch the job details
   async function getJobDetail() {
     const fetchJobDetail= await axios(BASE_URL+`${jobId}.json`+MARKDOWN);
-
     // Dispatch the data
     dispatch({type:"FETCH_JOB_DETAILS_DATA", details: fetchJobDetail.data})
   }

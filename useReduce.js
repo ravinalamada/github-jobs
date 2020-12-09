@@ -26,7 +26,7 @@ function useReduce() {
       case "FETCH_BERLIN_LOCATION_DATA": {
          return {...state, loading:false, jobs:action.berlinResponse}
        }
-       case "FIELTER_LOCATION": {
+       case "TOGGLE_CHECKBOX": {
          return {...state, loading: false, jobs: action.location}
        }
        case "NEW_YORK_LOCATION": {
@@ -37,9 +37,6 @@ function useReduce() {
        }
        case "SEARCH_JOB_BY_LOCATION" : {
          return {...state, jobs: action.searchJobByLocation}
-       }
-       case "SEARCH_JOB_IN_AMESTERDAM" : {
-         return {...state, jobs: action.searchJobInAmest}
        }
        default:
           return state

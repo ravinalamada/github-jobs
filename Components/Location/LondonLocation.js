@@ -22,8 +22,13 @@ function London() {
     }, 500)
   }, [])
 
+  // This will toggle the items
+  function toggleItems() {
+    dispatch({type:"TOGGLE_ITEMS"})
+  }
+
   // Set the date when the job is created
-  const dateObj =  !loading && jobs.find(job => job.created_at);
+  const dateObj =  !loading && jobs && jobs.find(job => job.created_at);
   const dateStr = dateObj.created_at
   const date = new Date(dateStr);
   const days = date.getDay() + 1;

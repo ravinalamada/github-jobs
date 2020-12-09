@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useEffect, useContext} from 'react';
 import axios from 'axios';
 import {Context} from '../../GlobalContextProvider';
 import {Link} from 'react-router-dom';
@@ -21,6 +21,11 @@ function NYLocation() {
     }, 500)
   }, [])
 
+    // This will toggle the items
+    function toggleItems() {
+      dispatch({type:"TOGGLE_ITEMS"})
+    }
+
     // Set the date when the job is created
     const dateObj =  !loading && jobs.find(job => job.created_at);
     const dateStr = dateObj.created_at
@@ -31,7 +36,7 @@ function NYLocation() {
     <>
       {!loading && jobs && jobs.map(job => (
         <Link to={`/${job.id}`}>
-          <li className="items" key={job.id}>
+          <li className="items" key={job.id} onClick={toggleItems}>
             <div className="job--contents">
               <img src={job.company_logo} alt={job.title}/>
               <div>

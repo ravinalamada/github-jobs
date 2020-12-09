@@ -22,8 +22,13 @@ function berlinLocation() {
     }, 500)
   }, [])
 
+    // This will toggle the items
+    function toggleItems() {
+      dispatch({type:"TOGGLE_ITEMS"})
+    }
+
   // Set the date when the job is created
-  const dateObj =  !loading && jobs.find(job => job.created_at);
+  const dateObj =  !loading && jobs && jobs.find(job => job.created_at);
   const dateStr = dateObj.created_at
   const date = new Date(dateStr);
   const days = date.getDay() + 1;
@@ -32,7 +37,7 @@ function berlinLocation() {
     <>
       {!loading && jobs && jobs.map(job => (
         <Link to={`/${job.id}`}>
-          <li className="items" key={job.id}>
+          <li className="items" key={job.id} onClick={toggleItems}>
           <div className="job--contents">
             <img src={job.company_logo} alt={job.title}/>
             <div>
